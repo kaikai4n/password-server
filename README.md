@@ -3,6 +3,10 @@ A simple http sever that protected others from access data directly.
 
 - It is **not** a secure server
 - It is not for commercial usage
+- Recommended usage: **want to show files on a server in a short time with protection.**
+  - show files: visualize or download files
+  - in a short time: just take a look of the file
+  - with protection: simple protection, which is not safe for long term usage.
 
 # What does the server do?
 - **python** provides simple http server which can **access files** under the data directory.
