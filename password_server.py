@@ -74,7 +74,7 @@ class MySimpleHTTPRequestHandler(SimpleHTTPRequestHandler):
         if self.client_address[0] in self.server.verified_clients:
             super().do_GET()
         else:
-            password = self.path.lstrip('/')
+            password = self.path.lstrip('/').split('&')[0]
             if hash_password(password) == self.server.password:
                 print(f'Verified client {self.client_address[0]}')
                 self.server.add_verified_clients(self.client_address[0])
@@ -87,8 +87,6 @@ class MySimpleHTTPRequestHandler(SimpleHTTPRequestHandler):
 
     def do_HEAD(self):
         raise Exception('Code should not be here')
-        if self.client_address in self.server.verified_clients:
-            super().do_HEAD()
 
     def translate_path(self, path):
         """Translate a /-separated PATH to the local filename syntax.
