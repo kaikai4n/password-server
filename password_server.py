@@ -72,9 +72,12 @@ class VerifyHTTPServer(HTTPServer):
 class MySimpleHTTPRequestHandler(SimpleHTTPRequestHandler):
     def do_GET(self):
         if self.client_address[0] in self.server.verified_clients:
+            get_string = self.path.lstrip('/').split('?')[0]
+            if hash_password(get_string) == self.server.password:
+                self.path = '/'
             super().do_GET()
         else:
-            password = self.path.lstrip('/').split('&')[0]
+            password = self.path.lstrip('/').split('?')[0]
             if hash_password(password) == self.server.password:
                 print(f'Verified client {self.client_address[0]}')
                 self.server.add_verified_clients(self.client_address[0])
